@@ -9,11 +9,20 @@ class SalesReport
       { rep: "Sam", region: "North East", revenue: "10_000" },
     ]
 
+    # 2. This is the main computation bit of the current report, and
+    # it seems like we'll need to add more computation logic to suppor
+    # the new requirement. While this bit is aesthetically atrocious,
+    # it's functional. Its readability is poor, but so far as the
+    # system is concerned it computes the correct values for the
+    # report and it is not immediately clear this NEEDS to change to
+    # accept the new requirement. This section is NOT a primary
+    # concern for me at this point.
     regional_revenue = Hash.new(0)
     for rep in sales
       regional_revenue[rep.fetch(:region)] += rep.fetch(:revenue).to_i
     end
 
+    # 1. The report currently consists of ONLY the regional revenue. This is the most obvious site which needs to change
     regional_revenue
   end
 end
