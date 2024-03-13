@@ -9,16 +9,10 @@ class SalesReport
       { rep: "Sam", region: "North East", revenue: "10_000" },
     ]
 
-    # [mf-refactoring 231] Replace Loop with Pipeline
-    result = Hash.new(0)
-    result = sales
-               .group_by { |sale| sale.fetch(:region) }
-               .transform_values { |sales| sales.sum { |sale| sale.fetch(:revenue).to_i } }
-    # for rep in sales
-    #   result[rep.fetch(:region)] += rep.fetch(:revenue).to_i
-    # end
-
-    result
+    # [mf-refactoring 237] Remove Dead Code
+    sales
+      .group_by { |sale| sale.fetch(:region) }
+      .transform_values { |sales| sales.sum { |sale| sale.fetch(:revenue).to_i } }
   end
 end
 
