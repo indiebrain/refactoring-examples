@@ -9,11 +9,14 @@ class SalesReport
       { rep: "Sam", region: "North East", revenue: "10_000" },
     ]
 
-    # [mf-refactoring 137] Rename variable.
+    # [mf-refactoring 231] Replace Loop with Pipeline
     result = Hash.new(0)
-    for rep in sales
-      result[rep.fetch(:region)] += rep.fetch(:revenue).to_i
-    end
+    result = sales
+               .group_by { |sale| sale.fetch(:region) }
+               .transform_values { |sales| sales.sum { |sale| sale.fetch(:revenue).to_i } }
+    # for rep in sales
+    #   result[rep.fetch(:region)] += rep.fetch(:revenue).to_i
+    # end
 
     result
   end
@@ -28,12 +31,12 @@ class SalesReportTest < Minitest::Test
   end
 end
 
-# >> Run options: --seed 45460
+# >> Run options: --seed 42107
 # >>
 # >> # Running:
 # >>
 # >> .
 # >>
-# >> Finished in 0.000321s, 3115.2648 runs/s, 3115.2648 assertions/s.
+# >> Finished in 0.000418s, 2392.3446 runs/s, 2392.3446 assertions/s.
 # >>
 # >> 1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
