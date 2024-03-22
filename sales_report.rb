@@ -9,13 +9,8 @@ class SalesReport
       { rep: "Sam", region: "North East", revenue: "10_000" },
     ])
 
-    # [mf-refactoring 115] Inline function
-    # 1. Find all the callers of the function.
-    # 2. Replace each call with the function’s body.
     ledger.total_by_region
   end
-
-  # 3. Remove the function definition.
 end
 
 class Ledger
@@ -53,12 +48,31 @@ class SalesReportTest < Minitest::Test
   end
 end
 
-# >> Run options: --seed 65292
+class LedgerTest < Minitest::Test
+  def test_total_by_region
+    transactions = [
+      { region: "North East", revenue: "2" },
+      { region: "North East", revenue: "3" },
+      { region: "Midwest", revenue: "3" },
+      { region: "North East", revenue: "1" },
+    ]
+    expected = {
+      "North East" => 6,
+      "Midwest" => 3,
+    }
+
+    actual = Ledger.new(transactions).total_by_region
+
+    assert_equal expected, actual
+  end
+end
+
+# >> Run options: --seed 18806
 # >>
 # >> # Running:
 # >>
-# >> .
+# >> ..
 # >>
-# >> Finished in 0.000264s, 3787.8788 runs/s, 3787.8788 assertions/s.
+# >> Finished in 0.000360s, 5555.5555 runs/s, 5555.5555 assertions/s.
 # >>
-# >> 1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
+# >> 2 runs, 2 assertions, 0 failures, 0 errors, 0 skips
