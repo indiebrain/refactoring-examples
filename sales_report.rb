@@ -33,7 +33,14 @@ class Ledger
   end
 
   def avg_per_rep_by_region
+    transactions
+      .group_by { |transaction| transaction.fetch(:region) }
+      .transform_values do |regional_transactions|
+        rep_count = regional_transactions.group_by { |transaction| transaction.fetch(:rep) }.count
+        regional_total = total_by_region.fetch(regional_transactions.first.fetch(:region))
 
+        regional_total / rep_count
+      end
   end
 
   private
@@ -88,21 +95,12 @@ class LedgerTest < Minitest::Test
   end
 end
 
-# >> Run options: --seed 44347
+# >> Run options: --seed 65315
 # >>
 # >> # Running:
 # >>
-# >> F..
+# >> ...
 # >>
-# >> Finished in 0.005769s, 520.0208 runs/s, 520.0208 assertions/s.
+# >> Finished in 0.000503s, 5964.2148 runs/s, 5964.2148 assertions/s.
 # >>
-# >>   1) Failure:
-# >> LedgerTest#test_avg_per_rep_by_region [-:87]:
-# >> --- expected
-# >> +++ actual
-# >> @@ -1 +1 @@
-# >> -{"North East"=>15, "Midwest"=>20}
-# >> +nil
-# >>
-# >>
-# >> 3 runs, 3 assertions, 1 failures, 0 errors, 0 skips
+# >> 3 runs, 3 assertions, 0 failures, 0 errors, 0 skips
