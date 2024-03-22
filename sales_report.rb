@@ -10,10 +10,8 @@ class SalesReport
     ])
 
     # [mf-refactoring 106] Extract function
-    ledger
-      .transactions
-      .group_by { |transaction| transaction.fetch(:region) }
-      .transform_values { |transactions| transactions.sum { |transaction| transaction.fetch(:revenue).to_i } }
+    # 3. Replace the extracted code in the source function with a call to the target function.
+    total_by_region(ledger)
   end
 
   private
@@ -56,12 +54,12 @@ class SalesReportTest < Minitest::Test
     assert_equal expected, actual
   end
 end
-# >> Run options: --seed 25852
+# >> Run options: --seed 55753
 # >>
 # >> # Running:
 # >>
 # >> .
 # >>
-# >> Finished in 0.000278s, 3597.1220 runs/s, 3597.1220 assertions/s.
+# >> Finished in 0.000378s, 2645.5025 runs/s, 2645.5025 assertions/s.
 # >>
 # >> 1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
