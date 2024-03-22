@@ -3,6 +3,7 @@ require 'minitest/autorun'
 class SalesReport
   def run
     sales = [
+    # [mf-refactoring 170] Encapsulate collection
       { rep: "Jamie", region: "North East", revenue: "80_000" },
       { rep: "Sam", region: "North East", revenue: "50_000" },
       { rep: "Charlie", region: "Midwest", revenue: "90_000" },
@@ -14,6 +15,27 @@ class SalesReport
       .group_by { |sale| sale.fetch(:region) }
       .transform_values { |sales| sales.sum { |sale| sale.fetch(:revenue).to_i } }
   end
+end
+
+# 1. Represent a collection of sales transactions
+class Ledger
+  def initialize(transactions)
+    self.transactions = transactions
+  end
+
+  def add(transaction)
+    self.transactions.push(transaction)
+  end
+
+  def transactions
+    @transactions.dup
+  end
+
+  private
+
+  attr_writer(
+    :transactions,
+  )
 end
 
 class SalesReportTest < Minitest::Test
