@@ -15,11 +15,7 @@ class SalesReport
     ledger.total_by_region
   end
 
-  private
-
-  def total_by_region(ledger)
-    ledger.total_by_region
-  end
+  # 3. Remove the function definition.
 end
 
 class Ledger
@@ -57,12 +53,12 @@ class SalesReportTest < Minitest::Test
   end
 end
 
-# >> Run options: --seed 18923
+# >> Run options: --seed 65292
 # >>
 # >> # Running:
 # >>
 # >> .
 # >>
-# >> Finished in 0.000318s, 3144.6540 runs/s, 3144.6540 assertions/s.
+# >> Finished in 0.000264s, 3787.8788 runs/s, 3787.8788 assertions/s.
 # >>
 # >> 1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
