@@ -15,11 +15,9 @@ class SalesReport
   private
 
   # [mf-refactoring 198] Move function
+  # 2. Turn the source function into a delegating function.
   def total_by_region(ledger)
-    ledger
-      .transactions
-      .group_by { |transaction| transaction.fetch(:region) }
-      .transform_values { |transactions| transactions.sum { |transaction| transaction.fetch(:revenue).to_i } }
+    ledger.total_by_region
   end
 end
 
@@ -58,12 +56,13 @@ class SalesReportTest < Minitest::Test
     assert_equal expected, actual
   end
 end
-# >> Run options: --seed 55753
+
+# >> Run options: --seed 53991
 # >>
 # >> # Running:
 # >>
 # >> .
 # >>
-# >> Finished in 0.000378s, 2645.5025 runs/s, 2645.5025 assertions/s.
+# >> Finished in 0.000290s, 3448.2759 runs/s, 3448.2759 assertions/s.
 # >>
 # >> 1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
