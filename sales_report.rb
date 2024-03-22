@@ -9,7 +9,9 @@ class SalesReport
       { rep: "Sam", region: "North East", revenue: "10_000" },
     ])
 
-    ledger.total_by_region
+    {
+      "total" => ledger.total_by_region,
+    }
   end
 end
 
@@ -100,12 +102,12 @@ class LedgerTest < Minitest::Test
   end
 end
 
-# >> Run options: --seed 65315
+# >> Run options: --seed 14024
 # >>
 # >> # Running:
 # >>
 # >> ...
 # >>
-# >> Finished in 0.000503s, 5964.2148 runs/s, 5964.2148 assertions/s.
+# >> Finished in 0.000383s, 7832.8981 runs/s, 7832.8981 assertions/s.
 # >>
 # >> 3 runs, 3 assertions, 0 failures, 0 errors, 0 skips
