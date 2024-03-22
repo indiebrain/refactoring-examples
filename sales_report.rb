@@ -2,7 +2,6 @@ require 'minitest/autorun'
 
 class SalesReport
   def run
-    # [mf-refactoring 170] Rename variable
     ledger = Ledger.new([
       { rep: "Jamie", region: "North East", revenue: "80_000" },
       { rep: "Sam", region: "North East", revenue: "50_000" },
@@ -10,6 +9,17 @@ class SalesReport
       { rep: "Sam", region: "North East", revenue: "10_000" },
     ])
 
+    # [mf-refactoring 106] Extract function
+    ledger
+      .transactions
+      .group_by { |transaction| transaction.fetch(:region) }
+      .transform_values { |transactions| transactions.sum { |transaction| transaction.fetch(:revenue).to_i } }
+  end
+
+  private
+
+  # 1. Copy the extracted code from the source function into the new target function.
+  def total_by_region
     ledger
       .transactions
       .group_by { |transaction| transaction.fetch(:region) }
@@ -45,12 +55,12 @@ class SalesReportTest < Minitest::Test
     assert_equal expected, actual
   end
 end
-# >> Run options: --seed 22667
+# >> Run options: --seed 36812
 # >>
 # >> # Running:
 # >>
 # >> .
 # >>
-# >> Finished in 0.000284s, 3521.1267 runs/s, 3521.1267 assertions/s.
+# >> Finished in 0.000267s, 3745.3184 runs/s, 3745.3184 assertions/s.
 # >>
 # >> 1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
