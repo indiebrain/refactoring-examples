@@ -9,13 +9,14 @@ class SalesReport
       { rep: "Sam", region: "North East", revenue: "10_000" },
     ])
 
-    total_by_region(ledger)
+    # [mf-refactoring 115] Inline function
+    # 1. Find all the callers of the function.
+    # 2. Replace each call with the function’s body.
+    ledger.total_by_region
   end
 
   private
 
-  # [mf-refactoring 198] Move function
-  # 2. Turn the source function into a delegating function.
   def total_by_region(ledger)
     ledger.total_by_region
   end
@@ -34,7 +35,6 @@ class Ledger
     @transactions.dup
   end
 
-  # 1. Copy the function to the target context. Adjust it to fit in its new home.
   def total_by_region
       transactions
       .group_by { |transaction| transaction.fetch(:region) }
@@ -57,12 +57,12 @@ class SalesReportTest < Minitest::Test
   end
 end
 
-# >> Run options: --seed 53991
+# >> Run options: --seed 18923
 # >>
 # >> # Running:
 # >>
 # >> .
 # >>
-# >> Finished in 0.000290s, 3448.2759 runs/s, 3448.2759 assertions/s.
+# >> Finished in 0.000318s, 3144.6540 runs/s, 3144.6540 assertions/s.
 # >>
 # >> 1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
