@@ -52,7 +52,12 @@ end
 
 class SalesReportTest < Minitest::Test
   def test_run
-    expected = {"North East"=>140000, "Midwest"=>90000}
+    expected = {
+      "total" => {
+        "North East"=>140000,
+        "Midwest"=>90000
+      },
+     }
     actual = SalesReport.new.run
 
     assert_equal expected, actual
