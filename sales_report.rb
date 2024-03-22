@@ -2,23 +2,21 @@ require 'minitest/autorun'
 
 class SalesReport
   def run
-    # [mf-refactoring 170] Encapsulate collection
-    # 2. Use the ledger
-    sales = Ledger.new([
+    # [mf-refactoring 170] Rename variable
+    ledger = Ledger.new([
       { rep: "Jamie", region: "North East", revenue: "80_000" },
       { rep: "Sam", region: "North East", revenue: "50_000" },
       { rep: "Charlie", region: "Midwest", revenue: "90_000" },
       { rep: "Sam", region: "North East", revenue: "10_000" },
     ])
 
-    sales
+    ledger
       .transactions
-      .group_by { |sale| sale.fetch(:region) }
-      .transform_values { |sales| sales.sum { |sale| sale.fetch(:revenue).to_i } }
+      .group_by { |transaction| transaction.fetch(:region) }
+      .transform_values { |transactions| transactions.sum { |transaction| transaction.fetch(:revenue).to_i } }
   end
 end
 
-# 1. Represent a collection of sales transactions
 class Ledger
   def initialize(transactions)
     self.transactions = transactions
@@ -47,12 +45,12 @@ class SalesReportTest < Minitest::Test
     assert_equal expected, actual
   end
 end
-# >> Run options: --seed 45239
+# >> Run options: --seed 22667
 # >>
 # >> # Running:
 # >>
 # >> .
 # >>
-# >> Finished in 0.000405s, 2469.1358 runs/s, 2469.1358 assertions/s.
+# >> Finished in 0.000284s, 3521.1267 runs/s, 3521.1267 assertions/s.
 # >>
 # >> 1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
