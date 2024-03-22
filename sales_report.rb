@@ -57,8 +57,12 @@ class SalesReportTest < Minitest::Test
     expected = {
       "total" => {
         "North East"=>140000,
-        "Midwest"=>90000
+        "Midwest"=>90000,
       },
+      "avg_per_rep" => {
+        "North East"=>70_000,
+        "Midwest"=>90_000,
+      }
      }
     actual = SalesReport.new.run
 
@@ -102,12 +106,21 @@ class LedgerTest < Minitest::Test
   end
 end
 
-# >> Run options: --seed 14024
+# >> Run options: --seed 5121
 # >>
 # >> # Running:
 # >>
-# >> ...
+# >> ..F
 # >>
-# >> Finished in 0.000383s, 7832.8981 runs/s, 7832.8981 assertions/s.
+# >> Finished in 0.005731s, 523.4689 runs/s, 523.4689 assertions/s.
 # >>
-# >> 3 runs, 3 assertions, 0 failures, 0 errors, 0 skips
+# >>   1) Failure:
+# >> SalesReportTest#test_run [-:69]:
+# >> --- expected
+# >> +++ actual
+# >> @@ -1 +1 @@
+# >> -{"total"=>{"North East"=>140000, "Midwest"=>90000}, "avg_per_rep"=>{"North East"=>70000, "Midwest"=>90000}}
+# >> +{"total"=>{"North East"=>140000, "Midwest"=>90000}}
+# >>
+# >>
+# >> 3 runs, 3 assertions, 1 failures, 0 errors, 0 skips
