@@ -65,14 +65,36 @@ class LedgerTest < Minitest::Test
 
     assert_equal expected, actual
   end
+
+  def test_avg_per_rep_by_region
+    transactions = [
+      { rep: "Jamie", region: "North East", revenue: "10" },
+      { rep: "Sam", region: "North East", revenue: "10" },
+      { rep: "Charlie", region: "Midwest", revenue: "20" },
+      { rep: "Sam", region: "North East", revenue: "10" },
+    ]
+    expected = {
+      "North East"=> 15,
+      "Midwest"=>20,
+    }
+
+    actual = Ledger.new(transactions).avg_per_rep_by_region
+
+    assert_equal expected, actual
+  end
 end
 
-# >> Run options: --seed 18806
+# >> Run options: --seed 19737
 # >>
 # >> # Running:
 # >>
-# >> ..
+# >> E..
 # >>
-# >> Finished in 0.000360s, 5555.5555 runs/s, 5555.5555 assertions/s.
+# >> Finished in 0.000376s, 7978.7238 runs/s, 5319.1492 assertions/s.
 # >>
-# >> 2 runs, 2 assertions, 0 failures, 0 errors, 0 skips
+# >>   1) Error:
+# >> LedgerTest#test_avg_per_rep_by_region:
+# >> NoMethodError: undefined method `avg_per_rep_by_region' for #<Ledger:0x00000001026a3d28 @transactions=[{:rep=>"Jamie", :region=>"North East", :revenue=>"10"}, {:rep=>"Sam", :region=>"North East", :revenue=>"10"}, {:rep=>"Charlie", :region=>"Midwest", :revenue=>"20"}, {:rep=>"Sam", :region=>"North East", :revenue=>"10"}]>
+# >>     -:81:in `test_avg_per_rep_by_region'
+# >>
+# >> 3 runs, 2 assertions, 0 failures, 1 errors, 0 skips
