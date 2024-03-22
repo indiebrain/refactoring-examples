@@ -32,6 +32,10 @@ class Ledger
       .transform_values { |transactions| transactions.sum { |transaction| transaction.fetch(:revenue).to_i } }
   end
 
+  def avg_per_rep_by_region
+
+  end
+
   private
 
   attr_writer(
@@ -84,17 +88,21 @@ class LedgerTest < Minitest::Test
   end
 end
 
-# >> Run options: --seed 19737
+# >> Run options: --seed 44347
 # >>
 # >> # Running:
 # >>
-# >> E..
+# >> F..
 # >>
-# >> Finished in 0.000376s, 7978.7238 runs/s, 5319.1492 assertions/s.
+# >> Finished in 0.005769s, 520.0208 runs/s, 520.0208 assertions/s.
 # >>
-# >>   1) Error:
-# >> LedgerTest#test_avg_per_rep_by_region:
-# >> NoMethodError: undefined method `avg_per_rep_by_region' for #<Ledger:0x00000001026a3d28 @transactions=[{:rep=>"Jamie", :region=>"North East", :revenue=>"10"}, {:rep=>"Sam", :region=>"North East", :revenue=>"10"}, {:rep=>"Charlie", :region=>"Midwest", :revenue=>"20"}, {:rep=>"Sam", :region=>"North East", :revenue=>"10"}]>
-# >>     -:81:in `test_avg_per_rep_by_region'
+# >>   1) Failure:
+# >> LedgerTest#test_avg_per_rep_by_region [-:87]:
+# >> --- expected
+# >> +++ actual
+# >> @@ -1 +1 @@
+# >> -{"North East"=>15, "Midwest"=>20}
+# >> +nil
 # >>
-# >> 3 runs, 2 assertions, 0 failures, 1 errors, 0 skips
+# >>
+# >> 3 runs, 3 assertions, 1 failures, 0 errors, 0 skips
