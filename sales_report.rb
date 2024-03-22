@@ -19,7 +19,8 @@ class SalesReport
   private
 
   # 1. Copy the extracted code from the source function into the new target function.
-  def total_by_region
+  # 2.Scan the extracted code for references to any variables that are local in scope to the source function and will not be in scope for the extracted function. Pass them as parameters.
+  def total_by_region(ledger)
     ledger
       .transactions
       .group_by { |transaction| transaction.fetch(:region) }
@@ -55,12 +56,12 @@ class SalesReportTest < Minitest::Test
     assert_equal expected, actual
   end
 end
-# >> Run options: --seed 36812
+# >> Run options: --seed 25852
 # >>
 # >> # Running:
 # >>
 # >> .
 # >>
-# >> Finished in 0.000267s, 3745.3184 runs/s, 3745.3184 assertions/s.
+# >> Finished in 0.000278s, 3597.1220 runs/s, 3597.1220 assertions/s.
 # >>
 # >> 1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
