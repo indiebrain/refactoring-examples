@@ -11,6 +11,7 @@ class SalesReport
 
     {
       "total" => ledger.total_by_region,
+      "avg_per_rep" => ledger.avg_per_rep_by_region,
     }
   end
 end
@@ -106,21 +107,12 @@ class LedgerTest < Minitest::Test
   end
 end
 
-# >> Run options: --seed 5121
+# >> Run options: --seed 11652
 # >>
 # >> # Running:
 # >>
-# >> ..F
+# >> ...
 # >>
-# >> Finished in 0.005731s, 523.4689 runs/s, 523.4689 assertions/s.
+# >> Finished in 0.000507s, 5917.1595 runs/s, 5917.1595 assertions/s.
 # >>
-# >>   1) Failure:
-# >> SalesReportTest#test_run [-:69]:
-# >> --- expected
-# >> +++ actual
-# >> @@ -1 +1 @@
-# >> -{"total"=>{"North East"=>140000, "Midwest"=>90000}, "avg_per_rep"=>{"North East"=>70000, "Midwest"=>90000}}
-# >> +{"total"=>{"North East"=>140000, "Midwest"=>90000}}
-# >>
-# >>
-# >> 3 runs, 3 assertions, 1 failures, 0 errors, 0 skips
+# >> 3 runs, 3 assertions, 0 failures, 0 errors, 0 skips
