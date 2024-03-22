@@ -9,15 +9,12 @@ class SalesReport
       { rep: "Sam", region: "North East", revenue: "10_000" },
     ])
 
-    # [mf-refactoring 106] Extract function
-    # 3. Replace the extracted code in the source function with a call to the target function.
     total_by_region(ledger)
   end
 
   private
 
-  # 1. Copy the extracted code from the source function into the new target function.
-  # 2.Scan the extracted code for references to any variables that are local in scope to the source function and will not be in scope for the extracted function. Pass them as parameters.
+  # [mf-refactoring 198] Move function
   def total_by_region(ledger)
     ledger
       .transactions
@@ -37,6 +34,13 @@ class Ledger
 
   def transactions
     @transactions.dup
+  end
+
+  # 1. Copy the function to the target context. Adjust it to fit in its new home.
+  def total_by_region
+      transactions
+      .group_by { |transaction| transaction.fetch(:region) }
+      .transform_values { |transactions| transactions.sum { |transaction| transaction.fetch(:revenue).to_i } }
   end
 
   private
